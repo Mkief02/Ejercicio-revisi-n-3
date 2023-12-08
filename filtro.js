@@ -1,4 +1,4 @@
-// Tenemos un li de productos
+// Tenemos un arreglo de productos
 
 const productos = [
   {nombre: "Zapato negro", tipo: "zapato", color: "negro", img: "./taco-negro.jpg"},
@@ -7,54 +7,55 @@ const productos = [
   {nombre: "Bota azul", tipo: "bota", color: "azul", img: "./bota-azul.jpg"},
   {nombre: "Zapato rojo", tipo: "zapato", color: "rojo", img: "./zapato-rojo.jpg"}
 ]
-
-const li = document.getElementsByName("lista-de-productos")
-const $i = document.querySelector('.input');
+// Se cambiaron los nombre de las variables declaradas y algunos métodos para acceder a las referencias del html
+const listProdRef = document.getElementById("lista-de-productos")
+const input = document.getElementById('input');
 
 for (let i = 0; i < productos.length; i++) {
-  var d = document.createElement("div")
-  d.classList.add("producto")
+  let div  = document.createElement("div")
+  div.classList.add("producto")
 
-  var ti = document.createElement("p")
-  ti.classList.add("titulo")
-  ti.textContent = productos[i].nombre
+  let title = document.createElement("p")
+  title.classList.add("titulo")
+  title.textContent = productos[i].nombre
   
-  var imagen = document.createElement("img");
+  let imagen = document.createElement("img");
   imagen.setAttribute('src', productos[i].img);
 
-  d.appendChild(ti)
-  d.appendChild(imagen)
+  div.appendChild(title);
+  div.appendChild(imagen);
 
-  li.appendChild(d)
+  listProdRef.appendChild(div);
 }
 
-displayProductos(productos)
-const botonDeFiltro = document.querySelector("button");
 
-botonDeFiltro.onclick = function() {
-  while (li.firstChild) {
-    li.removeChild(li.firstChild);
+const buttonRef = document.getElementById("click");
+
+buttonRef.onclick = () => {
+  while (listProdRef.firstChild) {
+    listProdRef.removeChild(listProdRef.firstChild);
   }
 
-  const texto = $i.value;
+  // Se agregó una validación para que cualquier cadena de texto se convierta en minúsculas
+  const texto = input.value.toLowerCase();
   console.log(texto);
   const productosFiltrados = filtrado(productos, texto );
 
   for (let i = 0; i < productosFiltrados.length; i++) {
-    var d = document.createElement("div")
-    d.classList.add("producto")
+    let div = document.createElement("div")
+    div.classList.add("producto")
   
-    var ti = document.createElement("p")
-    ti.classList.add("titulo")
-    ti.textContent = productosFiltrados[i].nombre
+    let title = document.createElement("p")
+    title.classList.add("titulo")
+    title.textContent = productosFiltrados[i].nombre
     
     var imagen = document.createElement("img");
     imagen.setAttribute('src', productosFiltrados[i].img);
   
-    d.appendChild(ti)
-    d.appendChild(imagen)
+    div.appendChild(title);
+    div.appendChild(imagen);
   
-    li.appendChild(d)
+    listProdRef.appendChild(div);
   }
 }
 
